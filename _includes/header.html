@@ -1,0 +1,29 @@
+<header class="site-header">
+<nav class="navbar navbar-default navbar-inverse">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <img width="40" src="{{site.baseurl}}/images/{{site.default-image}}" alt="Moby">
+      <a class="navbar-brand" href="{{site.baseurl}}/">{{site.title}}</a>
+      <button type="submit" onclick="build()" class="btn btn-default btn-lg"><i class="fa fa-magic"></i> Build</button>
+      <button type="submit" onclick="run()" class="btn btn-default btn-lg"><i class="fa fa-play"></i> Run</button>
+      <button type="submit" onclick="share()" class="btn btn-default btn-lg"><i class="fa fa-share"></i> Share</button>
+      <input type="text" id="shareInput"></input>
+
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse " id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="{{site.baseurl}}/about/">About</a></li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+</header>

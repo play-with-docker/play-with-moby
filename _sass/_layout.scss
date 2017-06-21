@@ -1,0 +1,183 @@
+$moby-side-color: #101e26;
+$moby-color: $background-color;
+
+html, body {
+    height: 100%;
+    background-color: $background-color;
+    color: $text-color;
+}
+
+img {
+    max-width: 100%;
+}
+
+.mt50 {
+    margin-top: 50px;
+}
+.mt20 {
+    margin-top: 20px;
+}
+
+.mt10 {
+    margin-top: 10px;
+}
+
+.mb10 {
+    margin-bottom: 10px;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+body > * {
+    flex: none;
+}
+
+
+#editor {
+    background-color: $moby-color;
+}
+
+
+.navbar-header {
+    button {
+        margin-left: 10px;
+    }
+
+    input {
+        color: #000;
+        margin-left: 5px;
+        width: 260px;
+        display: none;
+    }
+}
+
+.navbar {
+    border-radius: 0px;
+    margin-bottom: 0px;
+
+    &.navbar-inverse {
+        background-color: $moby-side-color;
+        border-color: $moby-side-color;
+
+        a, .navbar-nav li a {
+            color: $text-color;
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+}
+
+footer {
+    background-color: $moby-side-color;
+}
+
+.navbar-brand {
+    font-weight: 900;
+    margin-left: 0px !important;
+    vertical-align: middle;
+    float: none;
+    @media screen and (max-width: $on-palm) {
+        font-size: 1.5em;
+    }
+}
+
+.panel {
+    border:none;
+    box-shadow: 0px 0px 1px $grey-color;
+}
+
+.panel:hover {
+    box-shadow: 0px 0px 6px $grey-color;
+}
+
+
+.social {
+    list-style: none;
+    display: inline;
+    margin-left: 10px;
+    padding: 5px 8px;
+    }
+.social:hover {
+     opacity: 0.7;
+}
+.social img {
+    width: 20px;
+}
+
+.quora img{
+    width: 17px;
+}
+
+.facebook img {
+    width: 16px;
+}
+
+
+
+.panel-container {
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
+    height: 100%;
+    flex: 1 1 auto;
+
+    /* avoid browser level touch actions */
+    xtouch-action: none;
+}
+
+.terminal {
+    font-size: 15px;
+}
+
+
+.panel-left {
+    flex: 0 0 auto;
+    /* only manually resize */
+    width: 50%;
+    min-width: 150px;
+}
+
+.content {
+    padding: 0 15px;
+    overflow-y: auto;
+}
+
+.content {
+    padding: 0 15px;
+}
+
+
+.splitter {
+    flex: 0 0 auto;
+    width: 18px;
+    background: url(https://raw.githubusercontent.com/RickStrahl/jquery-resizable/master/assets/vsizegrip.png) center center no-repeat $moby-side-color;
+    min-height: 200px;
+    cursor: col-resize;
+}
+
+.panel-right {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    /* resizable */
+    width: 100%;
+    background: $moby-color;
+
+    > div {
+        flex: 1 1 auto;
+        margin-bottom: 15px;
+        overflow-y: auto;
+
+        &:last-of-type {
+            margin-bottom: 0px;
+        }
+
+        &.initialized {
+            background-color: black;
+        }
+    }
+}
