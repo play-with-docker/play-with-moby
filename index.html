@@ -83,7 +83,8 @@ var build = function() {
             var instanceName = Object.keys(pwd.instances)[0];
             pwd.socket.emit('terminal in', instanceName, 'moby build /var/run/pwd/uploads/os.yml\n');
         } else {
-            console.log('Error uploading file');
+            console.log(err);
+            alert('Error trying to build');
         }
     }); 
 
