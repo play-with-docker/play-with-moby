@@ -56,10 +56,10 @@ trust:
 </script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
 <script src="https://rawgit.com/RickStrahl/jquery-resizable/master/dist/jquery-resizable.min.js"></script>
-<script src="https://rawgit.com/play-with-docker/sdk/master/dist/pwd.js"></script>
+<script src="https://cdn.rawgit.com/play-with-docker/sdk/21b8ad08/dist/pwd.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.7/ace.js"></script>
 <script>
-pwd.newSession([{selector: '.term1'}], {baseUrl: 'http://localhost'});
+pwd.newSession([{selector: '.term1'}]);
 $(".panel-left").resizable({
     handleSelector: ".splitter",
     resizeHeight: false,
@@ -71,15 +71,27 @@ editor.session.setMode("ace/mode/yaml");
 editor.setShowPrintMargin(false);
 
 var build = function() {
-    var instanceName = Object.keys(pwd.instances)[0];
-    pwd.socket.emit('terminal in', instanceName, 'moby build /var/run/pwd/uploads/os.yml\n');
+    var blobAttrs = { type: "text/plain" };
+    var content = editor.getValue();
+    var osFile = new File([content], "os.yml", blobAttrs);
+
+    var formData = new FormData();
+    formData.append("upload", osFile, osFile.name);
+
+    pwd.upload(Object.keys(pwd.instances)[0], formData, function(err) {
+        if (!err) {
+            var instanceName = Object.keys(pwd.instances)[0];
+            pwd.socket.emit('terminal in', instanceName, 'moby build /var/run/pwd/uploads/os.yml\n');
+        } else {
+            console.log('Error uploading file');
+        }
+    }); 
 
 };
 
 var run = function() {
     var instanceName = Object.keys(pwd.instances)[0];
-    pwd.socket.emit('terminal in', instanceName, 'linuxkit run /var/run/pwd/uploads/os\n');
-
+    pwd.socket.emit('terminal in', instanceName, 'linuxkit run os\n');
 };
 
 
