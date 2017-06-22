@@ -89,7 +89,7 @@ function getParameterByName(name, url) {
 var shareCode = getParameterByName('share') || "UWonoYyh20";
 
 if (shareCode) {
-    $.get( "http://api.play-with-moby.com/shares/"+shareCode, function(data, lala,) {
+    $.get( "http://api.play-with-moby.com/shares/"+shareCode, function(data) {
         editor.setValue(data, -1);
     }).fail(function(err) {
         console.log(err);
