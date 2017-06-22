@@ -3,38 +3,8 @@ layout: default
 ---
 
 <div class="panel-container">
-    <div id="editor" class="panel-left content"># Minimal YAML to run a redis server (used at DockerCon'17)
-# connect: nc localhost 6379
-kernel:
-  image: "linuxkit/kernel:4.9.x"
-  cmdline: "console=ttyS0 console=tty0 page_poison=1"
-init:
-  - linuxkit/init:17693d233dd009b2a3a8d23673cb85969e1dce80
-  - linuxkit/runc:3a4e6cbf15470f62501b019b55e1caac5ee7689f
-  - linuxkit/containerd:be69ded7ed4437e2989da850581b631bac877d3e
-onboot:
-  - name: dhcpcd
-    image: "linuxkit/dhcpcd:7d2b8aaaf20c24ad7d11a5ea2ea5b4a80dc966f1"
-    command: ["/sbin/dhcpcd", "--nobackground", "-f", "/dhcpcd.conf", "-1"]
-services:
-  - name: getty
-    image: "linuxkit/getty:d0765e0a14733f9454010ac109a7c846a4e67fc5"
-    env:
-     - INSECURE=true
-  - name: redis
-    image: "redis:3.0.7-alpine"
-    capabilities:
-     - CAP_NET_BIND_SERVICE
-     - CAP_CHOWN
-     - CAP_SETUID
-     - CAP_SETGID
-     - CAP_DAC_OVERRIDE
-    net: host
-trust:
-  org:
-    - linuxkit
-  image:
-    - redis:3.0.7-alpine</div>
+    <div id="editor" class="panel-left content"/>
+    </div>
 
     <div class="splitter">
     </div>
@@ -87,7 +57,6 @@ var build = function() {
             alert('Error trying to build');
         }
     }); 
-
 };
 
 var run = function() {
@@ -95,10 +64,36 @@ var run = function() {
     pwd.socket.emit('terminal in', instanceName, 'linuxkit run os\n');
 };
 
-
 var share = function() {
-    // Post to API and get the share code
-    document.getElementById('shareInput').style.display='inline';
+    var content = editor.getValue();
+    $.post( "http://api.play-with-moby.com/shares", content, function(data) {
+        var shareElm = document.getElementById('shareInput');
+        shareElm.value = 'http://play-with-moby.com?share='+ data;
+        shareElm.style.display='inline';
+    }).fail(function(err) {
+        console.log(err);
+    });
 };
+
+function getParameterByName(name, url) {
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
+
+// Hardcode the default code
+var shareCode = getParameterByName('share') || "UWonoYyh20";
+
+if (shareCode) {
+    $.get( "http://api.play-with-moby.com/shares/"+shareCode, function(data, lala,) {
+        editor.setValue(data, -1);
+    }).fail(function(err) {
+        console.log(err);
+    });
+}
 
 </script>

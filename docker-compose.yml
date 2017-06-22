@@ -1,11 +1,24 @@
 version: '3'
 
 services:
-  jekyll:
-    image: jekyll/jekyll:3.2
-    command: jekyll serve
-    volumes:
-      - ./:/srv/jekyll
-    ports:
-      - 4000:4000
-    command: ["/usr/local/bin/jekyll", "serve"]
+
+    jekyll:
+        image: jekyll/jekyll
+        volumes:
+          - ./:/srv/jekyll
+        ports:
+          - 4000:4000
+        command: ["/usr/local/bin/jekyll", "serve"]
+
+    api:
+        image: franela/play-with-moby
+        ports:
+            - "8080:8080"
+        volumes:
+            - $GOPATH/src:/go/src
+    redis:
+        # pwd daemon container always needs to be named this way
+        container_name: redis
+        # use the latest golang image
+        image: redis
+        # go to the right place and starts the app
