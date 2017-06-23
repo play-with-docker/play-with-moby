@@ -43,10 +43,11 @@ editor.setShowPrintMargin(false);
 var build = function() {
     var blobAttrs = { type: "text/plain" };
     var content = editor.getValue();
-    var osFile = new File([content], "os.yml", blobAttrs);
+    var blob = new Blob([content], blobAttrs);
+    blob.lastModifiedDate = new Date();
 
     var formData = new FormData();
-    formData.append("upload", osFile, osFile.name);
+    formData.append("upload", blob, "os.yml");
 
     pwd.upload(Object.keys(pwd.instances)[0], formData, function(err) {
         if (!err) {
