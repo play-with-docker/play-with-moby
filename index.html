@@ -29,7 +29,7 @@ layout: default
 <script src="https://cdn.rawgit.com/play-with-docker/sdk/21b8ad08/dist/pwd.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.7/ace.js"></script>
 <script>
-pwd.newSession([{selector: '.term1'}]);
+    pwd.newSession([{selector: '.term1'}]);
 $(".panel-left").resizable({
     handleSelector: ".splitter",
     resizeHeight: false,
@@ -52,7 +52,7 @@ var build = function() {
     pwd.upload(Object.keys(pwd.instances)[0], formData, function(err) {
         if (!err) {
             var instanceName = Object.keys(pwd.instances)[0];
-            pwd.socket.emit('terminal in', instanceName, 'moby build /var/run/pwd/uploads/os.yml\n');
+            pwd.socket.emit('terminal in', instanceName, 'moby build os.yml\n');
         } else {
             console.log(err);
             alert('Error trying to build');
