@@ -26,10 +26,10 @@ layout: default
 </script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
 <script src="https://rawgit.com/RickStrahl/jquery-resizable/master/dist/jquery-resizable.min.js"></script>
-<script src="https://cdn.rawgit.com/play-with-docker/sdk/21b8ad08/dist/pwd.js"></script>
+<script src="https://cdn.rawgit.com/play-with-docker/sdk/6f5f37c1e067eb778efecd93e58b25b2457695ef/dist/pwd.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.7/ace.js"></script>
 <script>
-    pwd.newSession([{selector: '.term1'}]);
+    pwd.newSession([{selector: '.term1'}], {ImageName: 'franela/pwm'});
 $(".panel-left").resizable({
     handleSelector: ".splitter",
     resizeHeight: false,
@@ -52,7 +52,7 @@ var build = function() {
     pwd.upload(Object.keys(pwd.instances)[0], formData, function(err) {
         if (!err) {
             var instanceName = Object.keys(pwd.instances)[0];
-            pwd.socket.emit('terminal in', instanceName, 'moby build os.yml\n');
+            pwd.socket.emit('instance terminal in', instanceName, 'moby build os.yml\n');
         } else {
             console.log(err);
             alert('Error trying to build');
@@ -62,7 +62,7 @@ var build = function() {
 
 var run = function() {
     var instanceName = Object.keys(pwd.instances)[0];
-    pwd.socket.emit('terminal in', instanceName, 'linuxkit run os\n');
+    pwd.socket.emit('instance terminal in', instanceName, 'linuxkit run os\n');
 };
 
 var share = function() {
