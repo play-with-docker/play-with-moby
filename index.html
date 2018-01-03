@@ -97,4 +97,9 @@ if (shareCode) {
     });
 }
 
+window.onbeforeunload = function(e) {
+    pwd.closeSession(function(){});
+    return;
+}
+
 </script>
